@@ -2,6 +2,9 @@ name: First_action
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   say_hello:
