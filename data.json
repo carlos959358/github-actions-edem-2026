@@ -1,5 +1,24 @@
 {
-  "curso": "DevOps",
-  "modulo": "GitHub Actions",
-  "alumnos": ["Ana", "Luis", "Carlos"]
+  "id": "8f3c2a91-4b7e-4f6d-9a2e-1d7c9b0a6e54",
+  "name": "Luna Harper",
+  "age": 29,
+  "active": true,
+  "score": 87.45,
+  "tags": ["alpha", "beta", "gamma"],
+  "address": {
+    "street": "742 Evergreen Terrace",
+    "city": "Springfield",
+    "country": "USA",
+    "postalCode": "49007"
+  },
+  "preferences": {
+    "theme": "dark",
+    "notifications": {
+      "email": true,
+      "sms": false,
+      "push": true
+    }
+  },
+  "createdAt": "2026-02-11T09:42:18Z",
+  "metadata": null
 }

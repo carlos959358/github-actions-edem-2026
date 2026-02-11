@@ -1,38 +1,66 @@
-name: Exercise
+name: CI, Seguridad, Procesamiento y Notificación
 
 on:
   workflow_dispatch:
     inputs:
-      RunSecurityTests:
-        description: "¿Ejecutar tests de seguridad?"
+      run_security_tests:
+        description: "¿Ejecutar Tests de Seguridad?"
         required: true
-        type: boolean
-        default: false
+        type: choice
+        options:
+          - "sí"
+          - "no"
+        default: "no"
 
 jobs:
   ci_seguridad:
+    name: Job 1 - CI & Seguridad
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout del repositorio
+      - name: Checkout código
         uses: actions/checkout@v4
 
-      - name: Validar que ventas.json sea un JSON válido
+      - name: Validar ventas.json
         run: |
           echo "Validando ventas.json..."
           python3 -m json.tool ventas.json > /dev/null
-          echo "ventas.json es válido ✅"
-
-      - name: Configurar Python
-        if: ${{ github.event.inputs.RunSecurityTests == 'true' }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.9"
+          echo "ventas.json es un JSON válido ✅"
 
       - name: Ejecutar escaneo de seguridad (simulado)
-        if: ${{ github.event.inputs.RunSecurityTests == 'true' }}
+        if: ${{ github.event.inputs.run_security_tests == 'sí' }}
         run: |
-          python code/python/security_scan.py
-    job2:
-        needs: ci_seguridad
-    job3:
+          python3 code/python/security_scan.py
+
+  procesamiento:
+    name: Job 2 - Procesamiento
+    runs-on: ubuntu-latest
+    needs: ci_seguridad
+
+    strategy:
+      matrix:
+        environment: [staging, production]
+
+    steps:
+      - name: Generar reporte para ${{ matrix.environment }}
+        run: |
+          echo "Reporte del entorno: ${{ matrix.environment }}" > reporte-${{ matrix.environment }}.txt
+          echo "Procesamiento finalizado correctamente" >> reporte-${{ matrix.environment }}.txt
+
+      - name: Subir reporte como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-${{ matrix.environment }}
+          path: reporte-${{ matrix.environment }}.txt
+
+  notificacion:
+    name: Job 3 - Notificación de Éxito
+    runs-on: ubuntu-latest
+    needs: procesamiento
+    if: success()
+
+    steps:
+      - name: Enviar notificación (simulada)
+        run: |
+          echo "Enviando notificación a Discord..."
+          echo "${{ secrets.DISCORD_WEBHOOK }}"
