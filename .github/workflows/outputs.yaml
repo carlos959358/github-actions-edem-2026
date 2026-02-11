@@ -5,7 +5,7 @@ on:
 
 jobs:
   say_hello:
-    name: "Let's greet the user"
+    name: "Show time"
     runs-on: ubuntu-latest
     steps:
       - id: get-time
