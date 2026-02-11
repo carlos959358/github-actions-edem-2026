@@ -5,6 +5,7 @@ on:
       name:
         description: "Write your name"
         required: true
+        default: "cazurro"
 
 jobs:
   say_hello:
