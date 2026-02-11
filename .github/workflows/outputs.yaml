@@ -1,15 +1,17 @@
 name: Outputs
 
 on:
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
-    say_hello:
-        name: "Let's greet the user"
-        runs-on: ubuntu-latest
-        steps:
-            - id: get-time
-              name: Grab the current time
-              run: echo "currenttime=$(date +%s)" >> $GITHUB_OUTPUT
-            - name: Say Hello
-              run: echo "the time is ${{ steps.get-time.outputs.currenttime }}" 
+  say_hello:
+    name: "Let's greet the user"
+    runs-on: ubuntu-latest
+    steps:
+      - id: get-time
+        name: Grab the current time
+        run: |
+          curtime=$(date)
+          echo "currenttime=${curtime}" >> $GITHUB_OUTPUT
+      - name: show time
+        run: echo "the timestamp is ${{ steps.get-time.outputs.currenttime }}"
