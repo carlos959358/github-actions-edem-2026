@@ -1,6 +1,6 @@
 name: JSON Validation
 
-on: [workflow_dispatch]
+on: workflow_dispatch
 
 jobs:
   validate-json:
@@ -8,6 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: docker://orrosenblatt/validate-json-action:latest
-        with:
-          json: data.json
+      - name: Validate data.json syntax
+        run: |
+          python3 -m json.tool data.json > /dev/null
+          echo "✅ data.json is valid"
