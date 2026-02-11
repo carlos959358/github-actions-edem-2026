@@ -21,11 +21,11 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
 
-      - name: Validar ventas.json
+      - name: Validar data.json
         run: |
-          echo "Validando ventas.json..."
-          python3 -m json.tool ventas.json > /dev/null
-          echo "ventas.json es un JSON válido ✅"
+          echo "Validando data.json..."
+          python3 -m json.tool data.json > /dev/null
+          echo "data.json es un JSON válido ✅"
 
       - name: Ejecutar escaneo de seguridad (simulado)
         if: ${{ github.event.inputs.run_security_tests == 'sí' }}
