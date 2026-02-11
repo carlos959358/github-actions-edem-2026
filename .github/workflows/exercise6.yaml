@@ -1,0 +1,13 @@
+name: JSON Validation
+
+on: [workflow_dispatch]
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker://orrosenblatt/validate-json-action:latest
+        with:
+          json: data.json

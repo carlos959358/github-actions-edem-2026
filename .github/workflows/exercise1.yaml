@@ -1,0 +1,19 @@
+name: Global Env Example
+
+on: [workflow_dispatch]
+
+env:
+  GLOBAL_MESSAGE: "Hola desde variable global"
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Job1 dice: $GLOBAL_MESSAGE"
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Job2 dice: $GLOBAL_MESSAGE"

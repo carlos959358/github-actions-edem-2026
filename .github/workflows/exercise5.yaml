@@ -1,0 +1,14 @@
+name: Branch and Path Filter
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - "docs/**"
+
+jobs:
+  docs-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Cambio detectado en docs/ en la rama develop"

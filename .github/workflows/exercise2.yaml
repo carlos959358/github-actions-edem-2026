@@ -1,0 +1,11 @@
+name: Secret Login
+
+on: [workflow_dispatch]
+
+jobs:
+  login:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulated login
+        run: |
+          echo "Logging in with user ${{ secrets.LOGIN_USER }} and password: ${{ secrets.LOGIN_PASSWORD }}"

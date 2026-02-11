@@ -1,0 +1,38 @@
+name: Exercise
+
+on:
+  workflow_dispatch:
+    inputs:
+      RunSecurityTests:
+        description: "¿Ejecutar tests de seguridad?"
+        required: true
+        type: boolean
+        default: false
+
+jobs:
+  ci_seguridad:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Validar que ventas.json sea un JSON válido
+        run: |
+          echo "Validando ventas.json..."
+          python3 -m json.tool ventas.json > /dev/null
+          echo "ventas.json es válido ✅"
+
+      - name: Configurar Python
+        if: ${{ github.event.inputs.RunSecurityTests == 'true' }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Ejecutar escaneo de seguridad (simulado)
+        if: ${{ github.event.inputs.RunSecurityTests == 'true' }}
+        run: |
+          python code/python/security_scan.py
+    job2:
+        needs: ci_seguridad
+    job3:
