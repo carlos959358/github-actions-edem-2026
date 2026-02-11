@@ -1,0 +1,11 @@
+name: Scheduled Workflow
+
+on:
+  schedule:
+    - cron: "0 9 * * 1"
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Ejecutándose cada lunes a las 9 AM"
