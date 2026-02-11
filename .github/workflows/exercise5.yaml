@@ -2,10 +2,8 @@ name: Branch and Path Filter
 
 on:
   push:
-    branches:
-      - develop
-    paths:
-      - "docs/**"
+    branches: [develop]
+    paths: ["docs/**"]
 
 jobs:
   docs-job:
